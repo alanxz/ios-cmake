@@ -169,6 +169,15 @@ set (CMAKE_FIND_ROOT_PATH_MODE_PROGRAM ONLY)
 set (CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 set (CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 
+# Needed for try_compile commands in iOS to work correctly.
+# See: https://public.kitware.com/Bug/view.php?id=15329
+if (CMAKE_VERSION VERSION_LESS "3.2.1")
+  message(AUTHOR_WARNING "try_compile() does not work with CMake versions "
+  "earlier than 3.2.1. See: https://public.kitware.com/Bug/view.php?id=15329")
+endif()
+
+set(CMAKE_MACOSX_BUNDLE YES)
+set(CMAKE_XCODE_ATTRIBUTE_CODE_SIGNING_REQUIRED "NO")
 
 # This little macro lets you set any XCode specific property
 macro (set_xcode_property TARGET XCODE_PROPERTY XCODE_VALUE)
